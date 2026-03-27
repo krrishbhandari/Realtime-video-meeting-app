@@ -1,0 +1,206 @@
+.meetVideoContainer{
+    position: relative;
+    height: 100vh;
+    background-color: black;
+}
+
+.meetUserVideo{
+    position : absolute;
+    bottom : 10vh;
+    height: 40vh;
+    width: auto;
+    left: 145px;
+    border-radius:20px;
+    
+}
+
+.buttonContainers {
+
+    position: fixed;
+    bottom: 10px;
+    left:50%;
+    transform: translate(-50%);
+    z-index: 250;
+    display: flex;
+    gap:12px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+}
+
+
+
+.buttonContainers svg {
+font-size: 2.5rem;
+
+}
+
+ /* .conferenceView{
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+padding: 5px;
+gap: 5px;
+    border-radius:20px;
+}
+
+.conferenceView video{
+    width: 40vw;
+    height: 40vh;
+    min-width: 40vw;
+    border-radius: 20x !important;
+
+}  */
+
+.conferenceView{
+ position: absolute;
+ inset:0;
+ display: grid;
+ grid-template-columns: repeat(2 , 1fr);
+ grid-template-rows: repeat(2 , 1fr);
+ gap: 0;
+ margin-left: 55px;
+ margin-top: 5px;
+ padding: 0;
+ width: 100%;
+ height: 100%;
+ overflow: hidden;
+
+}
+
+.videoCell{
+    width: 90%;
+    height: 80%;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden; 
+}
+
+.gridVideo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+}
+
+.videoCell {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .conferenceView{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4 , 1fr);
+    }
+}
+.chatRoom{
+    position: absolute;
+    height: 90vh;
+    right: 0;
+    background-color: #f7f8fa;
+    border-radius: 10px;
+    width: 27vw;
+    padding: 20px;
+    border: 1px solid #d3d6db;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    margin-top: 28px;
+    margin-right: 15px;
+    z-index:999;
+}
+
+.chatContainer{
+    position: relative;
+    height: 100%;
+}
+
+.chattingDisplay {
+    margin-bottom: 90px;
+    overflow-y: auto;
+    height: calc(100% - 140px);
+    padding-right: 6px;
+}
+
+.chattingDisplay p {
+    margin: 4px 0;
+}
+
+.chattingDisplay > div {
+    background: #ffffff;
+    border: 1px solid #e2e6eb;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.chattingArea{
+    position: absolute;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(255,255,255,0.88);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid #d7dae0;
+}
+
+.chattingInput {
+    flex: 1;
+}
+
+.chattingSendBtn {
+    min-width: 90px;
+    height: 42px;
+    background-color: #0f62fe;
+}
+
+.chattingSendBtn:hover {
+    background-color: #0043ce;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*Changes made to add microphone status badge*/
+
+.micStatusBadge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+}
+
+.micOnIcon {
+  color: #00e676;
+  font-size: 0.95rem;
+}
+
+.micOffIcon {
+  color: #ff3d00;
+  font-size: 0.95rem;
+}
+

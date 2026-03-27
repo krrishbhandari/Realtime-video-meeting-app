@@ -1,6 +1,5 @@
 import httpStatus from "http-status";
 import {User}  from "../models/user.model.js";
-import {Meeting} from "../models/meeting.model.js";
 import bcrypt , {hash} from "bcrypt";
 import crypto from "crypto";
 
@@ -62,20 +61,11 @@ const getUserHistory = async(req , res) =>{
   const{token} = req.query;
 
   try{
-    if(!token){
-      return res.status(httpStatus.BAD_REQUEST).json({message : "Token is required"});
-    }
-
     const user = await User.findOne({token: token});
-    
-    if(!user){
-      return res.status(httpStatus.UNAUTHORIZED).json({message : "Invalid token"});
-    }
-
     const meetings = await Meeting.find({user_id: user.username});
-    res.status(httpStatus.OK).json(meetings)
+    res.json(meetings)
   }catch(e){
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message : `Something went wrong ${e}`});
+    res.json({message : `Something went wrong ${e}`});
   }
 }
 
@@ -85,51 +75,16 @@ const addToHistory = async (req, res) => {
     try {
         const user = await User.findOne({ token: token });
 
-        if(!user){
-            return res.status(httpStatus.UNAUTHORIZED).json({message : "Invalid token"});
-        }
-
         const newMeeting = new Meeting({
             user_id: user.username,
-            meetingCode: meeting_code,
-            messages: []
+            meetingCode: meeting_code
         })
 
         await newMeeting.save();
 
-        res.status(httpStatus.CREATED).json({ message: "Added code to history", meeting: newMeeting })
+        res.status(httpStatus.CREATED).json({ message: "Added code to history" })
     } catch (e) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: `Something went wrong ${e}` })
+        res.json({ message: `Something went wrong ${e}` })
     }
 }
-
-const addMessagesToMeeting = async (req, res) => {
-    const { token, meeting_code, messages } = req.body;
-
-    try {
-        if(!token || !meeting_code){
-            return res.status(httpStatus.BAD_REQUEST).json({message : "Token and meeting code required"});
-        }
-
-        const user = await User.findOne({ token: token });
-        if(!user){
-            return res.status(httpStatus.UNAUTHORIZED).json({message : "Invalid token"});
-        }
-
-        const meeting = await Meeting.findOneAndUpdate(
-            { meetingCode: meeting_code, user_id: user.username },
-            { $set: { messages: messages } },
-            { new: true }
-        );
-
-        if(!meeting){
-            return res.status(httpStatus.NOT_FOUND).json({message : "Meeting not found"});
-        }
-
-        res.status(httpStatus.OK).json({ message: "Messages saved", meeting: meeting })
-    } catch (e) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: `Something went wrong ${e}` })
-    }
-}
-
-export {login , register , getUserHistory , addToHistory, addMessagesToMeeting} ;
+export {login , register , getUserHistory , addToHistory} ;

@@ -12,12 +12,8 @@ const meetingSchema = new Schema({
         type: Date,
         default: Date.now ,
         required : true
-    },
-    messages:{
-        type: Array,
-        default: []
     }
 })
 
-const Meeting = mongoose.model("Meeting"  , meetingSchema);
+const Meeting = mongoose.models("Meeting"  , meetingSchema);
 export {Meeting};

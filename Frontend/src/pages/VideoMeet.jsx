@@ -22,8 +22,9 @@ import GamepadIcon from '@mui/icons-material/Gamepad';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import { AuthContext } from "../contexts/AuthContext";
 import "../App.css";
+import servers from "../environment";
 
-const server_url = "http://localhost:8080";
+const server_url = servers;
 
 var connections = {};
 

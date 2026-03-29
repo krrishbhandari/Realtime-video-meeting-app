@@ -37,7 +37,7 @@ const peerConfigConnections = {
 export default function VideoMeetComponent() {
     
     /************************************************* */
-    const { addMessagesToMeeting } = useContext(AuthContext);
+    const { addMessagesToMeeting , addToUserHistory } = useContext(AuthContext);
     
     // Extract meeting code from URL
     const getMeetingCode = () => {
@@ -432,36 +432,32 @@ export default function VideoMeetComponent() {
     }
 
     let sendMessage = () => {
+        console.log(username , " " , ";" , message);
+         console.log(socketRef.current);
         socketRef.current.emit("chat-message", message, username);
         setMessage("");
     }
 
-    let handleEndCall = () => {
+    let handleEndCall =  () => {
     try {
         // Save messages before leaving
-        if(messages && messages.length > 0) {
-            addMessagesToMeeting(meetingCode, messages).catch(err => {
-                console.error("Failed to save messages:", err);
-            });
+        if (meetingCode) {
+             addToUserHistory(meetingCode);
         }
+
+        // ✅ THEN save messages
+        if (messages && messages.length > 0) {
+            addMessagesToMeeting(meetingCode, messages);
+        }
+
         
         let tracks = localVideoRef.current.srcObject?.getTracks();
         tracks?.forEach(track => track.stop());
     } catch (e) {
-        console.log(e);
+         window.location.href = "/"
     }
 
-    for (let id in connections) {
-        try {
-            connections[id].close();
-        } catch (e) {}
-        delete connections[id];
-    }
     
-    if (socketRef.current) {
-        socketRef.current.emit("leave-call");
-        socketRef.current.disconnect();
-    }
 
     setVideos([]);
     routeTo("/home");

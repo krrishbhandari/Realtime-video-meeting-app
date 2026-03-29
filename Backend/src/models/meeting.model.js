@@ -12,8 +12,14 @@ const meetingSchema = new Schema({
         type: Date,
         default: Date.now ,
         required : true
-    }
+    },
+     messages: [
+        {
+            sender: String,
+            data: String
+        }
+    ]
 })
 
-const Meeting = mongoose.models("Meeting"  , meetingSchema);
+const Meeting = mongoose.model("Meeting"  , meetingSchema);
 export {Meeting};

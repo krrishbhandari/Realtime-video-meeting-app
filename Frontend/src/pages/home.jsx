@@ -30,12 +30,12 @@ return (
         </div>
 
         <div style={{display: "flex" , alignItems: "center"}}>
-           <IconButton onClick={() =>{
+           {/* <IconButton onClick={() =>{
             navigate("/history")
            }}>
               <RestoreIcon />
            </IconButton>
-           <h3>History</h3>
+           <h3>History</h3> */}
            &nbsp;&nbsp;&nbsp;
            <Button onClick={() => {
              localStorage.removeItem("token")

@@ -26,23 +26,31 @@ export default function History() {
             try {
                 const token = localStorage.getItem("token");
                 if (!token) {
-                    console.error("No token found in localStorage");
+                    console.error("[History] No token found in localStorage");
                     setMeetings([]);
                     return;
                 }
                 
                 const history = await getHistoryOfUser();
-                console.log("Fetched history:", history);
+                console.log("[History] Fetched history:", history);
                 
                 if (history && Array.isArray(history)) {
+                    history.forEach((meeting, idx) => {
+                        console.log(`[History] Meeting ${idx}:`, {
+                            code: meeting.meetingCode,
+                            date: meeting.date,
+                            messageCount: meeting.messages?.length || 0
+                        });
+                    });
                     setMeetings(history);
                 } else if (history) {
                     setMeetings([history]);
                 } else {
+                    console.log("[History] No history returned");
                     setMeetings([]);
                 }
             } catch (err) {
-                console.error("Error fetching history:", err);
+                console.error("[History] Error fetching history:", err);
                 setMeetings([]);
             }
         }
@@ -51,7 +59,6 @@ export default function History() {
     }, [])
 
     let formatDateTime = (dateString) => {
-
         const date = new Date(dateString);
         const day = date.getDate().toString().padStart(2, "0");
         const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -61,7 +68,6 @@ export default function History() {
         const seconds = date.getSeconds().toString().padStart(2, "0");
 
         return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
-
     }
 
     return (
@@ -88,7 +94,7 @@ export default function History() {
                                 </Typography>
 
                                 <Typography sx={{ fontSize: 14, fontWeight: 'bold', marginTop: '15px', marginBottom: '10px' }}>
-                                    Messages:
+                                    Messages: ({e.messages?.length || 0})
                                 </Typography>
 
                                 {e.messages && Array.isArray(e.messages) && e.messages.length > 0 ? (
@@ -96,10 +102,10 @@ export default function History() {
                                         {e.messages.map((msg, msgIndex) => (
                                             <Box key={msgIndex} sx={{ marginBottom: '10px', padding: '8px', backgroundColor: 'white', borderRadius: '4px', borderLeft: '3px solid #1976d2' }}>
                                                 <Typography sx={{ fontSize: 12, fontWeight: 'bold', color: '#1976d2' }}>
-                                                    {msg.sender}
+                                                    {msg.sender || "Unknown"}
                                                 </Typography>
                                                 <Typography sx={{ fontSize: 13, color: '#333', marginTop: '4px' }}>
-                                                    {msg.data}
+                                                    {msg.data || "No message"}
                                                 </Typography>
                                             </Box>
                                         ))}

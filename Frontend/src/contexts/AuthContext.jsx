@@ -3,12 +3,11 @@ import axios, { HttpStatusCode } from "axios";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import servers from "../environment";
-
 export const AuthContext = createContext({});
 
 const client = axios.create({
     baseURL: `${servers}/api/v1/users`
-});
+})
 
 export const AuthProvider = ({ children }) => {
     const authContext = useContext(AuthContext);
@@ -60,6 +59,7 @@ export const AuthProvider = ({ children }) => {
         });
         return request.data
        }catch(err){
+        console.error("[AuthContext] Error fetching history:", err);
         throw err;
        }
     }

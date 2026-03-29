@@ -9,12 +9,13 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../contexts/AuthContext';
 import { Snackbar } from '@mui/material';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -56,10 +57,10 @@ export default function Authentication() {
                 setFormState(0)
                 setPassword("")
             }
-            
+
         } catch (err) {
             console.log(err);
-            let message = err.response?.data?.message || "Network error or server not responding";
+            let message = (err.response.data.message);
             setError(message);
         }
     }
@@ -78,15 +79,15 @@ export default function Authentication() {
                         style={{
                             width: "100%",
                             height: "100vh",
-                            objectFit: "cover"
+                            objectFit: "cover",
+                            filter: "brightness(60%)"
                         }}
                     >
                         <source src="/globe.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
                     </video>
                 </Grid>
                 <Grid size={{ xs: 12, sm: 8, md: 5 }} component={Paper} elevation={6} square>
-                    <Link href="/" style={{color:"#1976D2" , textDecoration:"none" , display:"flex" , marginLeft:"90%"}}><KeyboardBackspaceIcon/>&nbsp;Back</Link>
+                    <Link href="/" style={{color:"#1976D2" , marginLeft:"90%" , display:"flex",textDecoration:"none"}}><KeyboardBackspaceIcon/><b>&nbsp;Back</b></Link>
                     <Box
                         sx={{
                             my: 8,
@@ -99,6 +100,7 @@ export default function Authentication() {
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
+
 
                         <div>
                             <Button variant={formState === 0 ? "contained" : ""} onClick={() => { setFormState(0) }}>

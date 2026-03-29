@@ -1,5 +1,6 @@
 import httpStatus from "http-status";
 import {User}  from "../models/user.model.js";
+import { Meeting } from "../models/meeting.model.js";
 import bcrypt , {hash} from "bcrypt";
 import crypto from "crypto";
 
@@ -70,14 +71,15 @@ const getUserHistory = async(req , res) =>{
 }
 
 const addToHistory = async (req, res) => {
-    const { token, meeting_code } = req.body;
-
+    const { token, meeting_code , messages } = req.body;
+      
     try {
         const user = await User.findOne({ token: token });
 
         const newMeeting = new Meeting({
             user_id: user.username,
-            meetingCode: meeting_code
+            meetingCode: meeting_code,
+            messages: messages
         })
 
         await newMeeting.save();
@@ -87,4 +89,31 @@ const addToHistory = async (req, res) => {
         res.json({ message: `Something went wrong ${e}` })
     }
 }
-export {login , register , getUserHistory , addToHistory} ;
+
+const addMessagesToMeeting = async (req, res) => {
+    const { token, meeting_code, messages } = req.body;
+
+    try {
+        const user = await User.findOne({token: token });
+
+        const meeting = await Meeting.findOne({
+            user_id: user.username,
+            meetingCode: meeting_code,
+            messages: messages, 
+        });
+
+        if (!meeting) {
+            return res.status(404).json({ message: "Meeting not found" });
+        }
+
+        meeting.messages = messages; // overwrite OR push if needed
+        await meeting.save();
+
+        res.status(200).json({ message: "Messages saved" });
+
+    } catch (err) {
+        res.status(500).json({ message: "Error saving messages" });
+    }
+};
+
+export {login , register , getUserHistory , addToHistory , addMessagesToMeeting} ;

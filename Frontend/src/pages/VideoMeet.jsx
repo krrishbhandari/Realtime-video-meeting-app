@@ -438,26 +438,24 @@ export default function VideoMeetComponent() {
         setMessage("");
     }
 
-    let handleEndCall =  () => {
+    let handleEndCall = async () => {
     try {
         // Save messages before leaving
         if (meetingCode) {
-             addToUserHistory(meetingCode);
+            await addToUserHistory(meetingCode);
         }
 
         // ✅ THEN save messages
         if (messages && messages.length > 0) {
-            addMessagesToMeeting(meetingCode, messages);
+            await addMessagesToMeeting(meetingCode, messages);
         }
 
-        
         let tracks = localVideoRef.current.srcObject?.getTracks();
         tracks?.forEach(track => track.stop());
     } catch (e) {
-         window.location.href = "/"
+         window.location.href = "/home"
+         return;
     }
-
-    
 
     setVideos([]);
     routeTo("/home");

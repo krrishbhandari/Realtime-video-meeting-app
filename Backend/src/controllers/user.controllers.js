@@ -63,6 +63,9 @@ const getUserHistory = async(req , res) =>{
 
   try{
     const user = await User.findOne({token: token});
+    if(!user){
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid token" });
+    }
     const meetings = await Meeting.find({user_id: user.username});
     res.json(meetings)
   }catch(e){
@@ -95,12 +98,14 @@ const addMessagesToMeeting = async (req, res) => {
 
     try {
         const user = await User.findOne({token: token });
+    if (!user) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid token" });
+    }
 
         const meeting = await Meeting.findOne({
             user_id: user.username,
-            meetingCode: meeting_code,
-            messages: messages, 
-        });
+      meetingCode: meeting_code,
+    }).sort({ date: -1 });
 
         if (!meeting) {
             return res.status(404).json({ message: "Meeting not found" });

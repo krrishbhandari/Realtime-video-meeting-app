@@ -79,13 +79,24 @@ const addToHistory = async (req, res) => {
     try {
         const user = await User.findOne({ token: token });
 
-        const newMeeting = new Meeting({
-            user_id: user.username,
-            meetingCode: meeting_code,
-            messages: messages
-        })
-
-        await newMeeting.save();
+    await Meeting.findOneAndUpdate(
+      {
+        user_id: user.username,
+        meetingCode: meeting_code,
+      },
+      {
+        $setOnInsert: {
+          user_id: user.username,
+          meetingCode: meeting_code,
+          messages: messages || []
+        }
+      },
+      {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+      }
+    );
 
         res.status(httpStatus.CREATED).json({ message: "Added code to history" })
     } catch (e) {

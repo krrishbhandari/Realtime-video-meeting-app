@@ -111,4 +111,4 @@ Apna Video Call demonstrates how modern video meeting apps work under the hood. 
 
 ## 👤 Author
 
-Built by Krish Bhandari.
+Built with ❤️ by Krish Bhandari.

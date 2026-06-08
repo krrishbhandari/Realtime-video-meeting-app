@@ -1,4 +1,4 @@
-# Apna Video Call
+# 🎥 Apna Video Call
 
 > A Zoom-style video conferencing web app built with the MERN stack, WebRTC, and Socket.IO for real-time peer-to-peer meetings and chat.
 
@@ -6,7 +6,15 @@
 
 ---
 
-## Overview
+## 🔗 Quick Links
+
+| Link | Action |
+|---|---|
+| 🚀 Live Demo | [Open App](https://apnavideocall-rsgi.onrender.com) |
+
+---
+
+## 🔎 Overview
 
 Apna Video Call lets users register, log in, or join as a guest, create a unique meeting code, and invite others into the same room. The meeting supports real-time video/audio communication, screen sharing, and a live chat box. All chat messages sent during a meeting are saved with the sender name, date, and time.
 
@@ -14,7 +22,7 @@ This project was built to understand the core architecture behind platforms like
 
 ---
 
-## Features
+## ✨ Features
 
 - User authentication with register and login flows.
 - Guest joining with a custom meeting code.
@@ -27,7 +35,7 @@ This project was built to understand the core architecture behind platforms like
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - Frontend: React.js, Vite, React Router, Material UI
 - Backend: Node.js, Express.js
@@ -38,7 +46,7 @@ This project was built to understand the core architecture behind platforms like
 
 ---
 
-## How It Works
+## 🧭 How It Works
 
 1. A user creates or enters a meeting code.
 2. The code is shared with friends or teammates.
@@ -49,7 +57,7 @@ This project was built to understand the core architecture behind platforms like
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 - `Backend/` - Express API, Socket.IO controller logic, models, and routes.
 - `Frontend/` - React client, pages, contexts, and UI styles.
@@ -61,7 +69,7 @@ This project was built to understand the core architecture behind platforms like
 
 ---
 
-## Local Setup
+## ⚙️ Local Setup
 
 ### Backend
 
@@ -81,7 +89,7 @@ npm run dev
 
 ---
 
-## Environment Variables
+## 🌍 Environment Variables
 
 Create your own `.env` file in the backend before running the app. The exact variables depend on your deployment setup, but typically include:
 
@@ -95,12 +103,12 @@ If your frontend uses environment-specific API or socket URLs, add the matching 
 
 ---
 
-## Why This Project Matters
+## 💡 Why This Project Matters
 
 Apna Video Call demonstrates how modern video meeting apps work under the hood. It combines full-stack development, real-time messaging, peer-to-peer communication, and persistent chat storage in one project.
 
 ---
 
-## Author
+## 👤 Author
 
 Built by Krish Bhandari.
